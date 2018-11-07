@@ -30,7 +30,8 @@ async def test_coverage_latest(coverage_responses):
     assert data['previous_rev'] == '5401938bde37d0e7f1016bbd7694e72bdbf5e9a1'
 
 
-def test_coverage_by_changeset(coverage_builds):
+# NOTE: need to add coverage_responses to mock http request to hg.mozilla.org
+def test_coverage_by_changeset(coverage_responses, coverage_builds):
     from rq import Queue
     from codecoverage_backend import api
 
@@ -54,7 +55,8 @@ def test_coverage_by_changeset(coverage_builds):
             assert result['overall_prev'] == expected['overall_prev']
 
 
-def test_coverage_summary_by_changeset(coverage_builds):
+# NOTE: need to add coverage_responses to mock http request to hg.mozilla.org
+def test_coverage_summary_by_changeset(coverage_responses, coverage_builds):
     from rq import Queue
     from codecoverage_backend import api
 
