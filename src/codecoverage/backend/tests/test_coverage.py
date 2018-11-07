@@ -36,7 +36,7 @@ def test_coverage_by_changeset(coverage_responses, coverage_builds):
     from codecoverage_backend import api
 
     # patch the queue to be sync to allow it run without workers. http://python-rq.org/docs/testing/
-    with mock.patch('codecoverage_backend.api.q', Queue(connection=FakeStrictRedis(), is_async=False)):
+    with mock.patch('codecoverage_backend.api.q', Queue(connection=FakeStrictRedis(singleton=False), is_async=False)):
         # Get changeset coverage information
         for changeset, expected in coverage_builds['info'].items():
             result, code = api.coverage_by_changeset(changeset)
@@ -61,7 +61,7 @@ def test_coverage_summary_by_changeset(coverage_responses, coverage_builds):
     from codecoverage_backend import api
 
     # patch the queue to be sync to allow it run without workers. http://python-rq.org/docs/testing/
-    with mock.patch('codecoverage_backend.api.q', Queue(connection=FakeStrictRedis(), is_async=False)):
+    with mock.patch('codecoverage_backend.api.q', Queue(connection=FakeStrictRedis(singleton=False), is_async=False)):
         # Get changeset coverage information
         for changeset, expected in coverage_builds['summary'].items():
             result, code = api.coverage_summary_by_changeset(changeset)

@@ -34,7 +34,11 @@ def coverage_by_changeset_job(changeset):
 
 
 def coverage_by_changeset(changeset):
-    changeset = changeset[:12]
+    # is this line correct?
+    # because coverage_by_changeset_job is called using full changeset in the test
+    # but this function call coverage_by_changeset_job using the first 12 characters only
+    # the mocked http request is using full changeset, so it will cause a problem
+    # changeset = changeset[:12]
 
     job = q.fetch_job(changeset)
 
